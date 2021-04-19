@@ -1,7 +1,6 @@
 package com.mua.filesbymaifee.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.mua.filesbymaifee.adapter.FilesAdapter
 import com.mua.filesbymaifee.databinding.FragmentFilesBinding
 import com.mua.filesbymaifee.listener.FileClickListener
 import com.mua.filesbymaifee.viewmodel.FilesViewModel
-import java.io.File
 
 class FilesFragment : BaseFragment<FragmentFilesBinding, FilesViewModel>(), FileClickListener {
 
@@ -39,13 +37,13 @@ class FilesFragment : BaseFragment<FragmentFilesBinding, FilesViewModel>(), File
         }
     }
 
-    private fun observeRV(){
+    private fun observeRV() {
         viewModel.files.observe(viewLifecycleOwner, Observer {
             filesAdapter.files = it
         })
     }
 
-    private fun initUp(){
+    private fun initUp() {
         binding.btnUp.setOnClickListener {
             viewModel.navigateUp()
         }
