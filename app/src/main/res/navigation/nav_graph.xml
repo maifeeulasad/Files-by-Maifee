@@ -9,5 +9,14 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.mua.filesbymaifee.view.SplashFragment"
-        android:label="SplashFragment" />
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_filesFragment"
+            app:destination="@id/filesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filesFragment"
+        android:name="com.mua.filesbymaifee.view.FilesFragment"
+        android:label="FilesFragment" />
+
 </navigation>
