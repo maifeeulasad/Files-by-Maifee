@@ -8,15 +8,15 @@ import com.mua.filesbymaifee.listener.FileClickListener
 import java.io.File
 
 
-class FilesAdapter() : RecyclerView.Adapter<FilesAdapter.TransactionVH>() {
+class FilesAdapter() : RecyclerView.Adapter<FilesAdapter.FilesVH>() {
 
-    inner class TransactionVH(val binding: ItemFileFilesFragmentBinding) :
+    inner class FilesVH(val binding: ItemFileFilesFragmentBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilesVH {
         val binding =
             ItemFileFilesFragmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TransactionVH(binding)
+        return FilesVH(binding)
     }
 
     var files: Array<File> = arrayOf()
@@ -34,7 +34,7 @@ class FilesAdapter() : RecyclerView.Adapter<FilesAdapter.TransactionVH>() {
         return files.size
     }
 
-    override fun onBindViewHolder(holder: TransactionVH, position: Int) {
+    override fun onBindViewHolder(holder: FilesVH, position: Int) {
         val file = files[position]
         holder.binding.apply {
             tvItemFileFilesFragment.text = file.name
