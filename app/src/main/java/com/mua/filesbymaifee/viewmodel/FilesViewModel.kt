@@ -15,14 +15,12 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
     private var mounts: List<String> = listOf()
 
     init {
-        mounts = mounts().map {
-            it.absolutePath
-        }
+        mounts = mounts()
         _files.postValue(mounts.toTypedArray())
     }
 
-    private fun mounts(): Array<File> {
-        val res: MutableList<File> = ArrayList()
+    private fun mounts(): List<String> {
+        val res: MutableList<String> = ArrayList()
         val externalStorageFiles =
             getExternalFilesDirs(getApplication(), null)
         val base = "/Android/data/" + getApplication<Application>().packageName + "/files"
@@ -31,11 +29,11 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
                 val path = file.absolutePath
                 if (path.contains(base)) {
                     val finalPath = path.replace(base, "")
-                    res.add(File(finalPath))
+                    res.add(finalPath)
                 }
             }
         }
-        return res.toTypedArray()
+        return res
     }
 
     fun listChildren(filePath: String) {
@@ -52,9 +50,17 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
 
     fun navigateUp() {
         if (files.value?.size!! > 0) {
+            files.value?.forEach {
+                if (mounts.contains(it))
+                    return
+            }
             val fileParent = File(files.value?.get(0)).parentFile
             val fileParentParent = fileParent?.parentFile
-            fileParentParent?.absolutePath?.let { listChildren(it) }
+            if (!mounts.contains(fileParent.absolutePath)) {
+                fileParentParent?.absolutePath?.let { listChildren(it) }
+            } else {
+                _files.postValue(mounts.toTypedArray())
+            }
         }
     }
 
