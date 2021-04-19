@@ -7,6 +7,10 @@ A minimal File Explorer for Android, mainly demonstrating Android Architecture C
  - [x] livedata
  - [x] navigation
  - [x] view binding
+ - [x] life cycle aware components
+ - [ ] room
+ - [ ] paging
+ - [ ] work manager 
  
 
 ## Snaps : 
