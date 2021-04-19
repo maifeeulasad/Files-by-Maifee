@@ -51,11 +51,11 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun navigateUp() {
-        /*
-        if (files.value?.get(0)?.parent != null) {
-            listChildren(File(File(files.value!![0].parent).parent))
+        if (files.value?.size!! > 0) {
+            val fileParent = File(files.value?.get(0)).parentFile
+            val fileParentParent = fileParent?.parentFile
+            fileParentParent?.absolutePath?.let { listChildren(it) }
         }
-        */
     }
 
 }
