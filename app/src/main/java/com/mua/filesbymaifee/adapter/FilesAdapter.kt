@@ -1,8 +1,10 @@
 package com.mua.filesbymaifee.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mua.filesbymaifee.R
 import com.mua.filesbymaifee.databinding.ItemFileFilesFragmentBinding
 import com.mua.filesbymaifee.listener.FileClickListener
 import java.io.File
@@ -41,6 +43,24 @@ class FilesAdapter() : RecyclerView.Adapter<FilesAdapter.FilesVH>() {
         holder.binding.apply {
             tvItemFileName.text = file.name
             tvItemFileLastModified.text = Date(file.lastModified()).toString()
+            if (file.isDirectory) {
+                ivItemFileIcon.setImageResource(R.drawable.icon_file_folder)
+            } else {
+                val filePath = file.absolutePath
+                val lastDotIndex = filePath.lastIndexOf(".")
+                var extension= ""
+                if(lastDotIndex>0)
+                    extension= filePath.substring(lastDotIndex)
+                if (extension == ".mp3" || extension == ".wav") {
+                    ivItemFileIcon.setImageResource(R.drawable.icon_file_audio)
+                } else if (extension == ".pdf") {
+                    ivItemFileIcon.setImageResource(R.drawable.icon_file_pdf)
+                } else if (extension == ".mp4" || extension == ".gif") {
+                    ivItemFileIcon.setImageResource(R.drawable.icon_file_video)
+                } else {
+                    ivItemFileIcon.setImageResource(R.drawable.icon_file_file)
+                }
+            }
             if (::onItemClickListener.isInitialized) {
                 holder.itemView.setOnClickListener {
                     onItemClickListener.onClick(filePath)
