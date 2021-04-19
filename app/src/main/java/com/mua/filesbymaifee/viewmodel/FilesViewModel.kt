@@ -16,7 +16,6 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
         _files.postValue(mounts())
     }
 
-
     private fun mounts(): Array<File> {
         val res: MutableList<File> = ArrayList()
         val externalStorageFiles =
@@ -32,6 +31,17 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         return res.toTypedArray()
+    }
+
+    fun listChildren(file: File) {
+        if (!file.isDirectory) {
+            return
+        }
+        val res: MutableList<File> = ArrayList()
+        file.listFiles()?.forEach {
+            res.add(File(it.absolutePath))
+        }
+        _files.postValue(res.toTypedArray())
     }
 
 }

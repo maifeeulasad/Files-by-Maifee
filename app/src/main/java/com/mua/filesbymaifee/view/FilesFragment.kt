@@ -44,7 +44,7 @@ class FilesFragment : BaseFragment<FragmentFilesBinding, FilesViewModel>(), File
     }
 
     override fun onClick(file: File) {
-        Log.d("d--mua", "name : " + file.absolutePath)
+        viewModel.listChildren(file)
     }
 
 }
