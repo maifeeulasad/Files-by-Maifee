@@ -6,6 +6,7 @@
 
     <Button
         android:text=".."
+        android:id="@+id/btn_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

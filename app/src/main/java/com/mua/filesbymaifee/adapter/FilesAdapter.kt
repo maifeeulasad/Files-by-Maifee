@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mua.filesbymaifee.databinding.ItemFileFilesFragmentBinding
 import com.mua.filesbymaifee.listener.FileClickListener
 import java.io.File
+import java.util.*
 
 
 class FilesAdapter() : RecyclerView.Adapter<FilesAdapter.FilesVH>() {
@@ -19,7 +20,7 @@ class FilesAdapter() : RecyclerView.Adapter<FilesAdapter.FilesVH>() {
         return FilesVH(binding)
     }
 
-    var files: Array<File> = arrayOf()
+    var files: Array<String> = arrayOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -35,12 +36,14 @@ class FilesAdapter() : RecyclerView.Adapter<FilesAdapter.FilesVH>() {
     }
 
     override fun onBindViewHolder(holder: FilesVH, position: Int) {
-        val file = files[position]
+        val filePath = files[position]
+        val file = File(filePath)
         holder.binding.apply {
-            tvItemFileFilesFragment.text = file.name
+            tvItemFileName.text = file.name
+            tvItemFileLastModified.text = Date(file.lastModified()).toString()
             if (::onItemClickListener.isInitialized) {
                 holder.itemView.setOnClickListener {
-                    onItemClickListener.onClick(file)
+                    onItemClickListener.onClick(filePath)
                 }
             }
         }

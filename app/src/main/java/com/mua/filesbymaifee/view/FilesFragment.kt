@@ -27,6 +27,8 @@ class FilesFragment : BaseFragment<FragmentFilesBinding, FilesViewModel>(), File
 
         initRV()
         observeRV()
+
+        initUp()
     }
 
     private fun initRV() = with(binding) {
@@ -43,8 +45,14 @@ class FilesFragment : BaseFragment<FragmentFilesBinding, FilesViewModel>(), File
         })
     }
 
-    override fun onClick(file: File) {
-        viewModel.listChildren(file)
+    private fun initUp(){
+        binding.btnUp.setOnClickListener {
+            viewModel.navigateUp()
+        }
+    }
+
+    override fun onClick(filePath: String) {
+        viewModel.listChildren(filePath)
     }
 
 }

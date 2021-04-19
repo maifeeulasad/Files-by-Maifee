@@ -9,11 +9,16 @@ import java.io.File
 
 class FilesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _files: MutableLiveData<Array<File>> = MutableLiveData(arrayOf())
-    val files: LiveData<Array<File>> = _files
+    private val _files: MutableLiveData<Array<String>> = MutableLiveData(arrayOf())
+    val files: LiveData<Array<String>> = _files
+
+    private var mounts: List<String> = listOf()
 
     init {
-        _files.postValue(mounts())
+        mounts = mounts().map {
+            it.absolutePath
+        }
+        _files.postValue(mounts.toTypedArray())
     }
 
     private fun mounts(): Array<File> {
@@ -33,15 +38,24 @@ class FilesViewModel(application: Application) : AndroidViewModel(application) {
         return res.toTypedArray()
     }
 
-    fun listChildren(file: File) {
+    fun listChildren(filePath: String) {
+        val file = File(filePath)
         if (!file.isDirectory) {
             return
         }
-        val res: MutableList<File> = ArrayList()
+        val res: MutableList<String> = ArrayList()
         file.listFiles()?.forEach {
-            res.add(File(it.absolutePath))
+            res.add(it.absolutePath)
         }
         _files.postValue(res.toTypedArray())
+    }
+
+    fun navigateUp() {
+        /*
+        if (files.value?.get(0)?.parent != null) {
+            listChildren(File(File(files.value!![0].parent).parent))
+        }
+        */
     }
 
 }
