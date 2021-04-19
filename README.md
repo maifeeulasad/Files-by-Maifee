@@ -2,6 +2,12 @@
 
 A minimal File Explorer for Android, mainly demonstrating Android Architecture Components
 
+## Used Architecture Components :
+ - [x] viewmodel
+ - [x] livedata
+ - [x] navigation
+ - [x] view binding
+ 
 
 ## Snaps : 
 
